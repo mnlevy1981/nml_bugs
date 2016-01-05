@@ -1,0 +1,18 @@
+&pre_nml
+str = "string/more_string"
+log = .true.
+/
+&my_nml1
+a=4
+b=5
+c=6
+/
+&my_nml2
+a=7
+b=8
+c=9
+/
+&post_nml
+another_log = .false.
+another_str = "another string"
+/
