@@ -15,13 +15,20 @@ Program my_nml_prog
   namelist /my_nml1/ a, b, c
   namelist /my_nml2/ a, b, c
 
+  ! Initialize string and array to be empty
   nl_string = ''
   nl_buffer(:) = ''
+
+  ! Read string from file
   open(unit=nml_in, file="namelist.nml", action='read', access='stream',      &
        form='unformatted', position='rewind', iostat=ierr, iomsg=msg)
   read(nml_in, iostat=ierr, iomsg=msg) nl_string
   close(nml_in)
+
+  ! Populate array (one namelist per element; strip carriage returns)
   call string_to_buffer(nl_string, nl_buffer)
+
+  ! Debug output: print contents of string and array
   if (debug_on) then
     print*, "string version of namelist"
     print*, "---"
@@ -35,7 +42,7 @@ Program my_nml_prog
     print*, ""
   end if
 
-  ! Read namelist from string containing many namelists
+  ! Read first namelist from string containing many namelists
   a = 0
   b = 0
   c = 0
@@ -43,7 +50,7 @@ Program my_nml_prog
   call print_err(ierr, msg, header="Read my_nml1")
   write(*,my_nml1)
 
-  ! Read namelist from array of strings, each containing single namelist
+  ! Read second namelist from array, each element containing single namelist
   a = 0
   b = 0
   c = 0
