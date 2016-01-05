@@ -3,7 +3,7 @@ Program my_nml_prog
   implicit none
 
   !logical, parameter :: io_msg_on = .true.
-  logical, parameter :: io_msg_on, parameter = .false.
+  logical, parameter :: io_msg_on = .false.
   !logical, parameter :: debug_on = .true.
   logical, parameter :: debug_on = .false.
   integer, parameter :: max_lines = 255, char_len=255
