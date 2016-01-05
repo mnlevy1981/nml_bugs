@@ -1,0 +1,19 @@
+NAG doesn't like the way we read the ecosystem namelist from a single string
+containing many namelists (and carriage returns)... in fact, PGI can't read the
+namelist either. The two errors are
+
+NAG: Invalid character '
+' in NAMELIST input
+
+PGI: end of file reached without finding group
+
+For NAG, this error triggers an abort in POP; for PGI, POP silently uses the
+default namelist values (as set in the Fortran code) rather than reading
+anything from pop_in.
+
+I thought I had a clever work around -- turn nl_buffer into an array, with each
+element containing a separate namelist. This fixes the issue in NAG and PGI,
+but gfortran now displays the same silent error of just using the POP defaults
+for everything except the namelist in nl_buffer(1).
+
+I'm fairly sure this is a gfortran bug.
