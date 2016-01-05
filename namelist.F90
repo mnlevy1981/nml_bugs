@@ -2,8 +2,8 @@ Program my_nml_prog
 
   implicit none
 
-  logical, parameter :: io_on = .true.
-  !logical, parameter :: io_on, parameter = .false.
+  !logical, parameter :: io_msg_on = .true.
+  logical, parameter :: io_msg_on, parameter = .false.
   !logical, parameter :: debug_on = .true.
   logical, parameter :: debug_on = .false.
   integer, parameter :: max_lines = 255, char_len=255
@@ -64,7 +64,7 @@ contains
     character(len=*), intent(in) :: msg
     character(len=*), optional, intent(in) :: header
 
-    if (io_on.and.(ierr.ne.0)) then
+    if (io_msg_on.and.(ierr.ne.0)) then
       if (present(header)) then
         print*, trim(header)
         print*, "---"
