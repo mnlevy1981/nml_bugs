@@ -89,8 +89,13 @@ Program my_nml_prog
 
   ! Write namelist to string
   write(*,"(A)") "Namelist contents to string"
-  write(nl_string,nml=my_nml1)
-  write(*,"(A)") trim(nl_string)
+  nl_buffer(:) = ''
+  write(nl_buffer,nml=my_nml1)
+  do i=1,max_lines
+    if (len(trim(nl_buffer(i))).ne.0) then
+      write(*,"(A)") trim(nl_buffer(i))
+    end if
+  end do
 
 contains
 
