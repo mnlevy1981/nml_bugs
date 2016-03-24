@@ -53,11 +53,11 @@ Program my_nml_prog
   if (verbose.or.debug_on) &
     write(*,my_nml1)
   if (any((/a,b,c/).eq.0)) then
-    print*, "Read from string: At least one namelist variable is still 0"
-    print*, "                  FAIL!"
+    write(*,"(A)") "Read from string: At least one namelist variable is still 0"
+    write(*,"(17X,A)") "FAIL!"
   else
-    print*, "Read from string: Successful namelist read!"
-    print*, "                  PASS!"
+    write(*,"(A)") "Read from string: Successful namelist read!"
+    write(*,"(17X,A)") "PASS!"
   end if
 
   ! Read second namelist from array, each element containing single namelist
@@ -76,12 +76,21 @@ Program my_nml_prog
   if (verbose.or.debug_on) &
     write(*,my_nml2)
   if (any((/a,b,c/).eq.0)) then
-    print*, "Read from array: At least one namelist variable is still 0"
-    print*, "                 FAIL!"
+    write(*,"(A)") "Read from array: At least one namelist variable is still 0"
+    write(*,"(17X,A)") "FAIL!"
   else
-    print*, "Read from array: Successful namelist read!"
-    print*, "                 PASS!"
+    write(*,"(A)") "Read from array: Successful namelist read!"
+    write(*,"(17X,A)") "PASS!"
   end if
+
+  ! Write namelist to screen
+  write(*,"(A)") "Namelist contents directly to screen"
+  write(*,nml=my_nml1)
+
+  ! Write namelist to string
+  write(*,"(A)") "Namelist contents to string"
+  write(nl_string,nml=my_nml1)
+  write(*,"(A)") trim(nl_string)
 
 contains
 
