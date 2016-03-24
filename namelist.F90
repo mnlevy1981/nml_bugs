@@ -10,7 +10,7 @@ Program my_nml_prog
   logical, parameter :: verbose = .false.
   integer, parameter :: max_lines = 255, char_len=255
 
-  integer :: a, b, c, ierr, nml_in, i, cnt
+  integer :: a, b, c, ierr, nml_in, i, cnt, max_len
   character(len=15), dimension(2) :: d
   character(len=char_len) :: nl_string, msg, tmp_str
   character(len=char_len), dimension(max_lines) :: nl_buffer
@@ -94,13 +94,16 @@ Program my_nml_prog
   nl_buffer(:) = ''
   write(nl_buffer,nml=my_nml1)
   cnt = 0
+  max_len = 0
   do i=1,max_lines
     if (len(trim(nl_buffer(i))).ne.0) then
+      max_len = max(max_len, len(trim(nl_buffer(i))))
       cnt = cnt+1
       write(*,"(A)") trim(nl_buffer(i))
     end if
   end do
   write(*, "(A,I0,A)") "Populated ", cnt, " elements of nl_buffer"
+  write(*, "(A,I0,A)") "Length of longest line is ", max_len, " characters"
 
 contains
 
