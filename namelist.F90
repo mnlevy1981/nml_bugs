@@ -10,7 +10,7 @@ Program my_nml_prog
   logical, parameter :: verbose = .false.
   integer, parameter :: max_lines = 255, char_len=255
 
-  integer :: a, b, c, ierr, nml_in, i
+  integer :: a, b, c, ierr, nml_in, i, cnt
   character(len=15), dimension(2) :: d
   character(len=char_len) :: nl_string, msg, tmp_str
   character(len=char_len), dimension(max_lines) :: nl_buffer
@@ -93,11 +93,14 @@ Program my_nml_prog
   write(*,"(A)") "Namelist contents to string"
   nl_buffer(:) = ''
   write(nl_buffer,nml=my_nml1)
+  cnt = 0
   do i=1,max_lines
     if (len(trim(nl_buffer(i))).ne.0) then
+      cnt = cnt+1
       write(*,"(A)") trim(nl_buffer(i))
     end if
   end do
+  write(*, "(A,I0,A)") "Populated ", cnt, " elements of nl_buffer"
 
 contains
 
